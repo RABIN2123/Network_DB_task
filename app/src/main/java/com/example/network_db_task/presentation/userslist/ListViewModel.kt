@@ -1,6 +1,6 @@
 package com.example.network_db_task.presentation.userslist
 
-import android.content.Context
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -14,8 +14,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class ListViewModel(private val mainRepository: MainRepository, private val requireContext: Context?) : ViewModel() {
+class ListViewModel(private val mainRepository: MainRepository, private val application: Application?) : ViewModel() {
     private val _usersFlow = MutableStateFlow(User())
+
     val userState: StateFlow<User> = _usersFlow
 
     init {
@@ -34,9 +35,9 @@ class ListViewModel(private val mainRepository: MainRepository, private val requ
                 mainRepository.saveInLocalDb(newList)
             }
             async {
-                requireContext?.let {context ->
+                application?.let {context ->
                     newList.forEach { item ->
-                        Glide.with(context).downloadOnly().load(item.picUrl).submit()
+                        Glide.with(context.applicationContext).downloadOnly().load(item.picUrl).submit()
                     }
                 }
             }
@@ -47,10 +48,10 @@ class ListViewModel(private val mainRepository: MainRepository, private val requ
     companion object {
         fun provideFactory(
             mainRepository: MainRepository,
-            requireContext: Context?
+            application: Application?
         ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return ListViewModel(mainRepository, requireContext) as T
+                return ListViewModel(mainRepository, application) as T
             }
         }
     }
