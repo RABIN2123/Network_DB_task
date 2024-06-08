@@ -15,7 +15,7 @@ import com.example.network_db_task.data.network.ApiHelperImpl
 import com.example.network_db_task.domain.repository.MainRepository
 import com.example.network_db_task.data.network.RetrofitBuilder
 import com.example.network_db_task.databinding.FragmentUserListBinding
-import com.example.network_db_task.domain.model.Item
+import com.example.network_db_task.domain.model.User
 import com.example.network_db_task.presentation.userinfo.UserInfoFragment
 import kotlinx.coroutines.launch
 
@@ -26,7 +26,7 @@ class UserListFragment : Fragment() {
         UserRecyclerAdapter(onItemClicked)
     }
 
-    private val onItemClicked: (Item) -> Unit = { item ->
+    private val onItemClicked: (User) -> Unit = { item ->
         val fragmentManager = requireActivity().supportFragmentManager
         val transaction = fragmentManager.beginTransaction()
         transaction.apply {
@@ -58,7 +58,7 @@ class UserListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("TAG", "${viewModel.userState.value}")
+        Log.d("TAG", "${viewModel.usersDataState.value}")
         initUi()
         dataListener()
     }
@@ -69,7 +69,7 @@ class UserListFragment : Fragment() {
 
     private fun dataListener() {
         lifecycleScope.launch {
-            viewModel.userState.collect { value ->
+            viewModel.usersDataState.collect { value ->
                 adapter.submitList(value.list)
             }
         }

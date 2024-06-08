@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.network_db_task.databinding.FragmentUserInfoBinding
-import com.example.network_db_task.domain.model.Item
+import com.example.network_db_task.domain.model.User
 
 class UserInfoFragment : Fragment() {
 
@@ -28,9 +28,9 @@ class UserInfoFragment : Fragment() {
     }
 
     private fun initUi() {
-        var user: Item? = null
+        var user: User? = null
         arguments?.let {
-            user = it.getParcelable<Item>("info")
+            user = it.getParcelable<User>("info")
         }
         binding?.apply {
             nameEditText.setText(user?.name)
@@ -42,7 +42,7 @@ class UserInfoFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(user: Item) = UserInfoFragment().apply {
+        fun newInstance(user: User) = UserInfoFragment().apply {
             arguments = Bundle().apply {
                 putParcelable("info", user)
             }

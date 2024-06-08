@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.example.network_db_task.domain.repository.MainRepository
-import com.example.network_db_task.data.localdatabase.model.User
+import com.example.network_db_task.data.localdatabase.model.UsersData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,9 +15,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ListViewModel(private val mainRepository: MainRepository, private val application: Application?) : ViewModel() {
-    private val _usersFlow = MutableStateFlow(User())
+    private val _usersFlow = MutableStateFlow(UsersData())
 
-    val userState: StateFlow<User> = _usersFlow
+    val usersDataState: StateFlow<UsersData> = _usersFlow
 
     init {
         initData()

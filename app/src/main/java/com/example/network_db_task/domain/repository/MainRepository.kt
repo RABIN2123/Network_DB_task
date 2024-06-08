@@ -3,12 +3,12 @@ package com.example.network_db_task.domain.repository
 import com.example.network_db_task.data.localdatabase.UserDaoHelper
 import com.example.network_db_task.data.localdatabase.UserEntity
 import com.example.network_db_task.data.network.ApiHelper
-import com.example.network_db_task.domain.model.Item
+import com.example.network_db_task.domain.model.User
 import com.example.network_db_task.domain.utils.convertJsonToLocalDb
 
 class MainRepository(private val apiHelper: ApiHelper, private val localDatabase: UserDaoHelper) {
-    suspend fun getUsers(): List<Item> {
-        val newList: List<Item> = try {
+    suspend fun getUsers(): List<User> {
+        val newList: List<User> = try {
             apiHelper.getUser().convertJsonToLocalDb()
         } catch (ex: Exception) {
             getOutLocalDb()
@@ -16,7 +16,7 @@ class MainRepository(private val apiHelper: ApiHelper, private val localDatabase
         return newList
     }
 
-    suspend fun saveInLocalDb(userList: List<Item>) {
+    suspend fun saveInLocalDb(userList: List<User>) {
         localDatabase.deleteData()
         localDatabase.insertData(
             userList.map { item ->
@@ -32,10 +32,10 @@ class MainRepository(private val apiHelper: ApiHelper, private val localDatabase
         )
     }
 
-    private fun getOutLocalDb(): List<Item> {
+    private fun getOutLocalDb(): List<User> {
         val list = localDatabase.getLocalUsers()
         return list.map { item ->
-            Item(
+            User(
                 id = item.id,
                 name = item.name,
                 dateOfBirth = item.dateOfBirth,
