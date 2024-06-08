@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Network_DB_task</string>
+    <string name="name">Name</string>
+    <string name="birth">Date of Birth</string>
+    <string name="phone">Phone</string>
+    <string name="email">Email</string>
+</resources>
