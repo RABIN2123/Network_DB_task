@@ -1,34 +1,19 @@
-package com.example.network_db_task.domain
+package com.example.network_db_task.domain.repository
 
 import com.example.network_db_task.data.localdatabase.UserDaoHelper
 import com.example.network_db_task.data.localdatabase.UserEntity
 import com.example.network_db_task.data.network.ApiHelper
-import com.example.network_db_task.data.network.model.GenUserResponse.UserJson
 import com.example.network_db_task.domain.model.Item
+import com.example.network_db_task.domain.utils.convertJsonToLocalDb
 
 class MainRepository(private val apiHelper: ApiHelper, private val localDatabase: UserDaoHelper) {
     suspend fun getUsers(): List<Item> {
         val newList: List<Item> = try {
-            val userList = apiHelper.getUser()
-            convertJsonToLocalDb(userList.results)
+            apiHelper.getUser().convertJsonToLocalDb()
         } catch (ex: Exception) {
             getOutLocalDb()
         }
         return newList
-    }
-
-    private fun convertJsonToLocalDb(userList: List<UserJson>): List<Item> {
-        var id = 1
-        return userList.map { item ->
-            Item(
-                id = id++,
-                name = item.name.first + " " + item.name.last,
-                dateOfBirth = item.dob.date,
-                phone = item.phone,
-                email = item.email,
-                picUrl = item.picture.picUrl
-            )
-        }
     }
 
     suspend fun saveInLocalDb(userList: List<Item>) {

@@ -12,7 +12,7 @@ import com.example.network_db_task.R
 import com.example.network_db_task.data.localdatabase.DatabaseBuilder
 import com.example.network_db_task.data.localdatabase.UserDaoHelperImpl
 import com.example.network_db_task.data.network.ApiHelperImpl
-import com.example.network_db_task.domain.MainRepository
+import com.example.network_db_task.domain.repository.MainRepository
 import com.example.network_db_task.data.network.RetrofitBuilder
 import com.example.network_db_task.databinding.FragmentUserListBinding
 import com.example.network_db_task.domain.model.Item

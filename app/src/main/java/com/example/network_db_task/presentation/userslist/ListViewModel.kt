@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
-import com.example.network_db_task.domain.MainRepository
+import com.example.network_db_task.domain.repository.MainRepository
 import com.example.network_db_task.data.localdatabase.model.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
