@@ -1,6 +1,6 @@
 package com.example.network_db_task.presentation.userslist
 
-import android.app.Application
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class ListViewModel(private val mainRepository: MainRepository, private val application: Application?) : ViewModel() {
+class ListViewModel(private val mainRepository: MainRepository, private val application: Context?) : ViewModel() {
     private val _usersFlow = MutableStateFlow(UsersData())
 
     val usersDataState: StateFlow<UsersData> = _usersFlow
@@ -48,7 +48,7 @@ class ListViewModel(private val mainRepository: MainRepository, private val appl
     companion object {
         fun provideFactory(
             mainRepository: MainRepository,
-            application: Application?
+            application: Context?
         ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return ListViewModel(mainRepository, application) as T

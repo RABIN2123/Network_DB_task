@@ -12,6 +12,7 @@ import com.example.network_db_task.domain.model.User
 class UserInfoFragment : Fragment() {
 
     private var binding: FragmentUserInfoBinding? = null
+    private var user: User? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,21 +25,21 @@ class UserInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initUi()
+        retrieveFromArguments()
+        user?.let { binding?.initUi(it) }
     }
 
-    private fun initUi() {
-        var user: User? = null
+    private fun retrieveFromArguments(){
         arguments?.let {
             user = it.getParcelable<User>("info")
         }
-        binding?.apply {
-            nameEditText.setText(user?.name)
-            dateEditText.setText(user?.dateOfBirth)
-            phoneEditText.setText(user?.phone)
-            emailEditText.setText(user?.email)
-            Glide.with(root.context).load(user?.picUrl).into(imageOfUser)
-        }
+    }
+    private fun FragmentUserInfoBinding.initUi(user: User) {
+        nameEditText.setText(user.name)
+        dateEditText.setText(user.dateOfBirth)
+        phoneEditText.setText(user.phone)
+        emailEditText.setText(user.email)
+        Glide.with(root.context).load(user.picUrl).into(imageOfUser)
     }
 
     companion object {

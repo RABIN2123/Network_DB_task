@@ -42,7 +42,7 @@ class UserListFragment : Fragment() {
                 ApiHelperImpl(RetrofitBuilder.apiService),
                 UserDaoHelperImpl(DatabaseBuilder.getDatabase(requireContext().applicationContext)),
             ),
-            activity?.application
+            activity?.applicationContext
         )
     }
 

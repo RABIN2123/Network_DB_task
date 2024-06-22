@@ -14,8 +14,8 @@ class UserRecyclerAdapter(
 ) : ListAdapter<User, UserRecyclerAdapter.MyViewHolder>(ItemDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-    val binding = FragmentUserElementBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-    return MyViewHolder(binding)
+        val binding = FragmentUserElementBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MyViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -45,6 +45,4 @@ class UserRecyclerAdapter(
             return oldItem == newItem
         }
     }
-
-
 }
